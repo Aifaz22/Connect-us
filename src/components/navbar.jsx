@@ -11,7 +11,7 @@ class NavBar extends React.Component {
           <a className="navbar-brand" href="#">course 4 </a>
           <a className="navbar-brand" href="#">course 5 </a>
           <a className="navbar-brand" href="#">course 6 </a>
-          <a className="navbar-brand" href="#">Messenger </a>
+          <a className="navbar-brand" href="#">Messenger! </a>
           <a className="navbar-brand" href="#">sign out</a>
           
         </div>
