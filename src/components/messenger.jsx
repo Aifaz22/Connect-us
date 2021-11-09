@@ -1,8 +1,26 @@
 import React, { Component } from "react";
+import MessageForm from "./messageform";
 import MessageList from "./messagelist";
 class Messenger extends React.Component {
   state = {
-    log: ["alyssaaa", "james", "elton"],
+    log: [
+      "alyssaaa",
+      "james",
+      "elton",
+      "james",
+      "elton",
+      "james",
+      "elton",
+      "james",
+      "elton",
+      "james",
+      "elton",
+      ,
+      "james",
+      "elton",
+      "james",
+      "elton",
+    ],
   };
   render() {
     return (
@@ -15,7 +33,7 @@ class Messenger extends React.Component {
             float: "left",
             borderRight: "2px solid Black ",
             width: "20%",
-            height: window.innerHeight * 0.6,
+            height: window.innerHeight * 0.73,
             overflow: "auto",
           }}
         >
@@ -34,6 +52,7 @@ class Messenger extends React.Component {
         <MessageList style={{ float: "right" }} />
 
         {/* <SendMessageForm /> */}
+        <MessageForm style={{ float: "right" }} />
       </React.Fragment>
     );
   }

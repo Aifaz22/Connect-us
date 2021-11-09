@@ -12,23 +12,9 @@ class NavBar extends React.Component {
             Profile
           </a>
           <a className="navbar-brand" href="#">
-            course 1{" "}
+            course dropdown{" "}
           </a>
-          <a className="navbar-brand" href="#">
-            course 2{" "}
-          </a>
-          <a className="navbar-brand" href="#">
-            course 3{" "}
-          </a>
-          <a className="navbar-brand" href="#">
-            course 4{" "}
-          </a>
-          <a className="navbar-brand" href="#">
-            course 5{" "}
-          </a>
-          <a className="navbar-brand" href="#">
-            course 6{" "}
-          </a>
+
           <a className="navbar-brand" href="#">
             Messenger!{" "}
           </a>

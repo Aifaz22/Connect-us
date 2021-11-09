@@ -1,8 +1,56 @@
 import React, { Component } from "react";
 
-class MessageList extends React.Component {
+class MessageList extends Component {
   state = {
     messages: [
+      {
+        senderId: "Aifaz",
+        text: "Hi",
+      },
+      {
+        senderId: "janedoe",
+        text: "Hello",
+      },
+      {
+        senderId: "perborgen",
+        text: "Hi",
+      },
+      {
+        senderId: "janedoe",
+        text: "Hello",
+      },
+      {
+        senderId: "perborgen",
+        text: "Hi",
+      },
+      {
+        senderId: "janedoe",
+        text: "Hello",
+      },
+      {
+        senderId: "perborgen",
+        text: "Hi",
+      },
+      {
+        senderId: "janedoe",
+        text: "Hello",
+      },
+      {
+        senderId: "perborgen",
+        text: "Hi",
+      },
+      {
+        senderId: "janedoe",
+        text: "Hello",
+      },
+      {
+        senderId: "perborgen",
+        text: "Hi",
+      },
+      {
+        senderId: "janedoe",
+        text: "Hello",
+      },
       {
         senderId: "perborgen",
         text: "Hi",
@@ -16,7 +64,20 @@ class MessageList extends React.Component {
   render() {
     return (
       <section>
-        <ul style={{ float: "bottom" }}>
+        <h5>Title</h5>
+        <ul
+          style={{
+            paddingRight: "1%",
+            width: "80%",
+            float: "right",
+            listStyle: "none",
+            height: window.innerHeight * 0.6,
+            overflow: "auto",
+            display: "flex",
+            flexDirection: "column-reverse",
+            bottom: "20",
+          }}
+        >
           {this.state.messages.map((message) => {
             return (
               <li
@@ -37,6 +98,7 @@ class MessageList extends React.Component {
                       marginTop: "0.2%",
                       textAlign: "left",
                       fontSize: "17px",
+                      paddingLeft: "100px",
                     }}
                   >
                     {message.text}
