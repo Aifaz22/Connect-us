@@ -1,4 +1,10 @@
 import React, { Component } from "react";
+import { Link,  } from "react-router-dom";
+import MainContent from "./maincontent";
+import Messenger from "./messenger";
+import Profile from "./profile";
+
+
 
 class NavBar extends React.Component {
   render() {
@@ -8,16 +14,17 @@ class NavBar extends React.Component {
           className="container-fluid"
           style={{ marginLeft: "2%", marginRight: "2%" }}
         >
-          <a className="navbar-brand" href="#">
-            Profile
-          </a>
+          {/* <a className="navbar-brand" href="#">
+            Profile</a> */}
+            <Link to ="/profile" className="navbar-brand"> Profile</Link>
+           
           <a className="navbar-brand" href="#">
             course dropdown{" "}
           </a>
-
-          <a className="navbar-brand" href="#">
+          <Link to ="/" className="navbar-brand"> Messenger!</Link>
+          {/* <a className="navbar-brand" href="#">
             Messenger!{" "}
-          </a>
+          </a> */}
           <form class="d-flex">
             <input
               class="form-control me-2"
@@ -37,5 +44,6 @@ class NavBar extends React.Component {
     );
   }
 }
+
 
 export default NavBar;
