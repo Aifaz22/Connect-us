@@ -1,27 +1,38 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
+import {  Route, Routes, useNavigate,Link } from "react-router-dom";
 
-class Login extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: "",
-      password: "",
-    };
+import NavBar from "./navbar";
+function Login() {
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     token: "false",
+  //     username: "",
+  //     password: "",
+  //   };
+  
+  const [username, setUsername] = useState();
+  const [password, setPassword] = useState();
+  const [login, setLogin] = useState(false);
+  let navigate = useNavigate();
+
+  const handleSubmit =  e=>{
+    setLogin(true);
+      e.preventDefault();
+    // navigate("/NavBar");
   }
-  render() {
+
     return (
       <div>
         <div>
-          <form>
+          <form onSubmit = {handleSubmit}>
             <label>
               <p>Username</p>
               <input
                 type="text"
                 style={{ width: "400px" }}
-                onChange={(event, newValue) =>
-                  this.setState({ username: newValue })
-                }
-              />
+                onChange={e=>
+                 setUsername(e.target.value) }/>
             </label>
             <br />
             <label>
@@ -29,16 +40,34 @@ class Login extends React.Component {
               <input
                 type="password"
                 style={{ width: "400px" }}
-                onChange={(event, newValue) =>
-                  this.setState({ password: newValue })
-                }
-              />
+                onChange={e=> setPassword(e.target.value)}/>
             </label>
             <div>
-              <button type="submit">Submit</button>
+              <button type="submit" style = {{marginTop: "0.5%"}}>Submit</button>
+              
             </div>
+           {/* <Link to = "/register" className="navbar-brand"> Register</Link> */}
           </form>
-          {/* <AppBar title="Login" />
+          <Link to = "/register" className="navbar-brand"> Register</Link>
+        </div>
+        {/* <Routes> 
+         <Route path="/" element={<Login />} />
+           <Route path="/NavBar" element={<NavBar />} />
+         
+         </Routes> */}
+      </div>
+    );
+                
+}
+
+export default Login;
+
+
+
+
+
+
+ {/* <AppBar title="Login" />
           <TextField
             hintText="Enter your Username"
             floatingLabelText="Username"
@@ -62,10 +91,3 @@ class Login extends React.Component {
             style={style}
             onClick={(event) => this.handleClick(event)}
           /> */}
-        </div>
-      </div>
-    );
-  }
-}
-
-export default Login;

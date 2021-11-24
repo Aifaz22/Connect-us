@@ -6,7 +6,7 @@ class Profile extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div>
+        <div>{/* test */}
         <view style={{flex:1, flexDirection:'column', float : "right", marginRight: "3%"}} > 
         <h2 >{this.state.name}</h2>
         <img src ={defaultProfile} />

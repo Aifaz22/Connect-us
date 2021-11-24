@@ -3,6 +3,7 @@ import React, { Component } from "react";
 class Courses extends React.Component {
   state = {
     current: ["cpsc471", "math211", "cspc526", "seng500"],
+    person1: ["ensf480", "cpsc471", "encm511", "cpsc457","math 375"],
   };
   render() {
     return (

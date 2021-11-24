@@ -7,6 +7,7 @@ import NavBar from "./components/navbar";
 import Messenger from "./components/messenger";
 import Profile from "./components/profile";
 import Login from "./components/login";
+import CourseOverview from "./components/courseOverview";
 import RegisterUser from "./components/register";
 import { render } from "@testing-library/react";
 
@@ -23,16 +24,24 @@ function App() {
    
     <div className="App">
       <h1>ConnectUs</h1>
+      {/* <Login/> */}
+      {/* <RegisterUser/> */}
       <NavBar/>
     
 
       <Routes>
-    <Route path ="/" element ={<Messenger/>}/>
-    <Route path ="/profile" element ={<Profile/>}/>
-
+    <Route path ="/" element ={<Profile/>}/>
+    <Route path ="/messenger" element ={<Messenger/>}/>
+    <Route path = "/login" element ={<Login/>}/>
+    <Route path = "/course" element ={<CourseOverview/>}/>
+    <Route path = "/register" element ={<RegisterUser/>}/>
     </Routes>
-      
-    
+         {/* <Routes> 
+         <Route path="/" element={<Login />} />
+           <Route path="/NavBar" element={<NavBar />} />
+         
+         </Routes>
+     */}
     </div>
     
   );
