@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-
+import Course from "./courses"
+import CoursePosts from "./coursePosts"
+import addPost from "./addPost"
 class CourseOverview extends React.Component{
 
 
@@ -7,7 +9,7 @@ class CourseOverview extends React.Component{
     return(
         <div>
         <p>Hello</p>
-        
+        <CoursePosts/>
         </div>
 
     );
