@@ -64,7 +64,7 @@ class MessageList extends Component {
   render() {
     return (
       <section>
-        <h5>Title</h5>
+        <h5>Chat</h5>
         <ul
           style={{
             paddingRight: "1%",
