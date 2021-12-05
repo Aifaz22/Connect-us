@@ -1,4 +1,4 @@
-import {  Route, Routes,  } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
 // import {NavBar, MainContent, Profile} from "./components"
 
@@ -12,42 +12,42 @@ import RegisterUser from "./components/register";
 import AddPost from "./components/addPost";
 import { render } from "@testing-library/react";
 
-  {/* <div className="App">
+{
+  /* <div className="App">
     <h1>ConnectUs</h1>
-      {/* <Profile/> */}
-      {/* <NavBar />
+      {/* <Profile/> */
+}
+{
+  /* <NavBar />
       <MainContent />
       <RegisterUser />
-      </div> */} 
+      </div> */
+}
 
 function App() {
   return (
-   
     <div className="App">
       <h1>ConnectUs</h1>
       {/* <Login/> */}
       {/* <RegisterUser/> */}
-      <NavBar/>
-    
+      <NavBar />
 
       <Routes>
-    <Route path ="/" element ={<Profile/>}/>
-    <Route path ="/messenger" element ={<Messenger/>}/>
-    <Route path = "/login" element ={<Login/>}/>
-    <Route path = "/course" element ={<CourseOverview/>}/>
-    <Route path = "/register" element ={<RegisterUser/>}/>
-    <Route path = "/addPost" element = {<AddPost/>}/>
-    
-    </Routes>
-         {/* <Routes> 
+        <Route path="/" element={<Profile />} />
+        <Route path="/messenger" element={<Messenger />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/course" element={<CourseOverview />} />
+        <Route path="/register" element={<RegisterUser />} />
+        <Route path="/addPost" element={<AddPost />} />
+      </Routes>
+      {/* <Routes> 
          <Route path="/" element={<Login />} />
            <Route path="/NavBar" element={<NavBar />} />
          
          </Routes>
      */}
     </div>
-    
   );
-};
+}
 
 export default App;
