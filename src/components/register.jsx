@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 class RegisterUser extends React.Component {
   constructor(props) {
@@ -200,6 +201,10 @@ class RegisterUser extends React.Component {
         ) : (
           <p></p>
         )}
+        <Link to="/login" className="navbar-brand">
+          {" "}
+          Already have an account? Log In
+        </Link>
       </div>
     );
   }

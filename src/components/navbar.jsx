@@ -1,70 +1,77 @@
 import { Dropdown } from "bootstrap";
 import React, { Component } from "react";
 import { NavDropdown } from "react-bootstrap";
-import { Link,  } from "react-router-dom";
+import { Link } from "react-router-dom";
 import MainContent from "./maincontent";
 import Messenger from "./messenger";
 import Profile from "./profile";
 import Login from "./login";
-import {  Route, Routes,  } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Courses from "./courses";
 
 class NavBar extends React.Component {
   render() {
     return (
       <div>
-      <nav className="navbar navbar-dark bg-dark">
-        <div
-          className="container-fluid"
-          style={{ marginLeft: "2%", marginRight: "2%" }}
-        >
-          {/* <a className="navbar-brand" href="#">
+        <nav className="navbar navbar-dark bg-dark">
+          <div
+            className="container-fluid"
+            style={{ marginLeft: "2%", marginRight: "2%" }}
+          >
+            {/* <a className="navbar-brand" href="#">
             Profile</a> */}
-            <Link to ="/" className="navbar-brand"> Profile</Link>
+            <Link to="/" className="navbar-brand">
+              {" "}
+              Profile
+            </Link>
             {/* <a className = "navbar-brand" href ="#"><span><Courses/></span> </a> */}
-          
-           <NavDropdown title= "Courses"  className = "navbar-brand " id="warning">
-            
-           <NavDropdown.Item><Link to = "/course"> Example Course</Link> </NavDropdown.Item>
 
-             </NavDropdown>
+            <NavDropdown title="Courses" className="navbar-brand " id="warning">
+              <NavDropdown.Item>
+                <Link to="/course"> Example Course</Link>{" "}
+              </NavDropdown.Item>
+            </NavDropdown>
 
-
-
-          <Link to ="/messenger" className="navbar-brand"> Messenger</Link>
-          {/* <a className="navbar-brand" href="#">
+            <Link to="/messenger" className="navbar-brand">
+              {" "}
+              Messenger
+            </Link>
+            {/* <a className="navbar-brand" href="#">
             Messenger!{" "}
           </a> */}
-          <form class="d-flex">
-            <input
-              class="form-control me-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-            <button class="btn btn-outline-success" type="submit">
-              Search
-            </button>
-          </form>
-          <Link to = "/login"className="navbar-brand border border-danger"  >
-            Sign Out
-          </Link>
-        </div>
-      </nav>
+            <form class="d-flex">
+              <input
+                class="form-control me-2"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+              />
+              <button class="btn btn-outline-success" type="submit">
+                Search
+              </button>
+            </form>
+            <Link
+              to="/login"
+              className="navbar-brand border border-danger"
+              onClick={() => {
+                sessionStorage.clear();
+              }}
+            >
+              Sign Out
+            </Link>
+          </div>
+        </nav>
 
-      <div>
-      
-      {/* <Routes>
+        <div>
+          {/* <Routes>
     <Route path ="/" element ={<Profile/>}/>
     <Route path ="/messenger" element ={<Messenger/>}/>
     <Route path = "/login" element ={<Login/>}/>
     </Routes> */}
-      </div>
-      
+        </div>
       </div>
     );
   }
 }
-
 
 export default NavBar;

@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 
 // import {NavBar, MainContent, Profile} from "./components"
 
@@ -25,13 +25,23 @@ import { render } from "@testing-library/react";
 }
 
 function App() {
+  var tokenPresent = sessionStorage.getItem("token") != undefined;
+  console.log(tokenPresent);
   return (
     <div className="App">
       <h1>ConnectUs</h1>
       {/* <Login/> */}
       {/* <RegisterUser/> */}
-      <NavBar />
+      {!tokenPresent ? <p /> : <NavBar />}
 
+      {/* when navigating goes to infinite loop*********************************************
+      {!tokenPresent ? (
+        <div>
+          <Navigate to="/login" replace={true} />
+        </div>
+      ) : (
+        <p />
+      )} */}
       <Routes>
         <Route path="/" element={<Profile />} />
         <Route path="/messenger" element={<Messenger />} />
