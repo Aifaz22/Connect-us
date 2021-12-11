@@ -1,70 +1,110 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 class MessageList extends Component {
-  state = {
-    messages: [
-      {
-        senderId: "Aifaz",
-        text: "Hi",
-      },
-      {
-        senderId: "janedoe",
-        text: "Hello",
-      },
-      {
-        senderId: "perborgen",
-        text: "Hi",
-      },
-      {
-        senderId: "janedoe",
-        text: "Hello",
-      },
-      {
-        senderId: "perborgen",
-        text: "Hi",
-      },
-      {
-        senderId: "janedoe",
-        text: "Hello",
-      },
-      {
-        senderId: "perborgen",
-        text: "Hi",
-      },
-      {
-        senderId: "janedoe",
-        text: "Hello",
-      },
-      {
-        senderId: "perborgen",
-        text: "Hi",
-      },
-      {
-        senderId: "janedoe",
-        text: "Hello",
-      },
-      {
-        senderId: "perborgen",
-        text: "Hi",
-      },
-      {
-        senderId: "janedoe",
-        text: "Hello",
-      },
-      {
-        senderId: "perborgen",
-        text: "Hi",
-      },
-      {
-        senderId: "janedoe",
-        text: "Hello",
-      },
-    ],
+  constructor(props) {
+    super();
+    this.state = {
+      chatterName: "Unknown",
+      chatterID: "UCID 4",
+      userID: "UCID 23",
+      userName: "Me",
+      messages: [
+        {
+          senderId: "Aifaz",
+          text: "Hi",
+        },
+        {
+          senderId: "janedoe",
+          text: "Hello",
+        },
+      ],
+    };
+  }
+
+  getMessages = async (x) => {
+    const chatterArr = x.split(" ");
+    var URL = "http://localhost:3000/api/Get_message/";
+    if (chatterArr[0] === "UCID") {
+      URL += chatterArr[1] + "/-1";
+    } else {
+      URL += "-1/" + chatterArr[1];
+    }
+
+    // // const body = {};
+    var token = sessionStorage.getItem("token");
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    var errorFound = false;
+    var self = this;
+    const response = await axios
+      .get(URL, config)
+      .then(function (response) {
+        console.log(response.data);
+        self.setState({ messages: response.data });
+      })
+      .catch(function (error) {
+        console.log(error);
+        console.log("XXXXXXXXXXXXXXXXXXXXX");
+        errorFound = true;
+      });
   };
+  // getSName = async (x) => {
+  //   const chatterArr = x.split(" ");
+  //   var URL = "http://localhost:3000/api/";
+  //   if (chatterArr[0] === "UCID") {
+  //     URL += "Students/" + chatterArr[1];
+  //   } else {
+  //     URL += "Alumni/" + chatterArr[1];
+  //   }
+
+  //   // // const body = {};
+  //   var token = sessionStorage.getItem("token");
+  //   const config = {
+  //     headers: { Authorization: `Bearer ${token}` },
+  //   };
+  //   var errorFound = false;
+  //   var self = this;
+  //   const response = await axios
+  //     .get(URL, config)
+  //     .then(function (response) {
+  //       console.log("/////////////////////////////////////////////");
+  //       console.log(response.data);
+  //       self.setState({
+  //         chatterName: response.data.fname + " " + response.data.lname,
+  //       });
+  //       console.log(self.state.chatterName);
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //       console.log("XXXXXXXXXXXXXXXXXXXXX");
+  //       errorFound = true;
+  //     });
+  // };
+  componentDidMount = () => {
+    this.getMessages(this.props.chatter);
+    // this.getSName(this.props.chatter);
+    if (sessionStorage.getItem("userUCID") == "null") {
+      this.setState({
+        chatterID: this.props.chatter,
+        userID: "ID " + sessionStorage.getItem("userAlumni"),
+        chatterName: this.props.chatterName,
+      });
+    } else {
+      this.setState({
+        chatterID: this.props.chatter,
+        userID: "UCID " + sessionStorage.getItem("userUCID"),
+        chatterName: this.props.chatterName,
+      });
+    }
+  };
+  // how to get name
   render() {
+    console.log(this.state.chatterName);
     return (
       <section>
-        <h5>Chat</h5>
+        <h5>{this.state.chatterName}</h5>
         <ul
           style={{
             paddingRight: "1%",
@@ -78,7 +118,7 @@ class MessageList extends Component {
             bottom: "20",
           }}
         >
-          {this.state.messages.map((message) => {
+          {this.state.messages.reverse().map((message) => {
             return (
               <li
                 style={{
@@ -87,9 +127,14 @@ class MessageList extends Component {
                   marginTop: "0.2%",
                   textAlign: "left",
                 }}
+                // key={"'" + message.Message_ID + "'"}
               >
                 <div className="MessageElement" style={{ fontSize: "12px" }}>
-                  {message.senderId} <br />
+                  {"ID " + message.S_ID == this.state.userID ||
+                  "UCID " + message.S_UCID == this.state.userID
+                    ? this.state.userName
+                    : this.state.chatterName}{" "}
+                  <br />
                   <div
                     className="MessageText"
                     style={{
@@ -101,7 +146,7 @@ class MessageList extends Component {
                       paddingLeft: "100px",
                     }}
                   >
-                    {message.text}
+                    {message.message_content}
                   </div>
                 </div>
               </li>
