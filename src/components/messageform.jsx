@@ -1,9 +1,13 @@
 import React, { Component } from "react";
 import axios from "axios";
 class MessageForm extends React.Component {
-  state = {
-    message_content: "",
-  };
+  constructor(props) {
+    super();
+    this.state = {
+      message_content: "",
+    };
+  }
+
   sendMessage = async () => {
     var chatterArr = this.props.chatter.split(" ");
     var body = {};
@@ -59,9 +63,9 @@ class MessageForm extends React.Component {
     return (
       <form
         className="send-message-form"
-        onSubmit={(event) => {
+        onSubmit={async (event) => {
           console.log("submitting...");
-          this.sendMessage();
+          await this.sendMessage();
           updateText();
           event.preventDefault();
           // navigate("/NavBar");

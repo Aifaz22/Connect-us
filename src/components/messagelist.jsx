@@ -83,6 +83,7 @@ class MessageList extends Component {
   //     });
   // };
   componentDidMount = () => {
+    console.log(this.props.chatter);
     this.getMessages(this.props.chatter);
     // this.getSName(this.props.chatter);
     if (sessionStorage.getItem("userUCID") == "null") {
@@ -101,7 +102,6 @@ class MessageList extends Component {
   };
   // how to get name
   render() {
-    console.log(this.state.chatterName);
     return (
       <section>
         <h5>{this.state.chatterName}</h5>
