@@ -32,7 +32,7 @@ function App() {
       <h1>ConnectUs</h1>
       {/* <Login/> */}
       {/* <RegisterUser/> */}
-      {!tokenPresent ? <p /> : <NavBar />}
+      {!(sessionStorage.getItem("token") !== undefined) ? <p /> : <NavBar />}
 
       {/* when navigating goes to infinite loop*********************************************
       {!tokenPresent ? (

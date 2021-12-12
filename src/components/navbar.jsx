@@ -10,6 +10,24 @@ import { Route, Routes } from "react-router-dom";
 import Courses from "./courses";
 
 class NavBar extends React.Component {
+  state = {
+    user: "X 1",
+  };
+  componentDidMount = () => {
+    var user = "";
+    if (sessionStorage.getItem("userUCID") !== "null") {
+      user = "UCID " + sessionStorage.getItem("userUCID");
+    } else if (sessionStorage.getItem("userSIN") !== "null") {
+      user = "SIN " + sessionStorage.getItem("userSIN");
+    } else if (sessionStorage.getItem("userAlumni") !== "null") {
+      user = "Alumni_ID " + sessionStorage.getItem("userAlumni");
+    } else if (sessionStorage.getItem("userAdmin") !== "null") {
+      user = "Admin_ID " + sessionStorage.getItem("userAdmin");
+    } else {
+      return;
+    }
+    this.setState({ user: user });
+  };
   render() {
     return (
       <div>
@@ -31,11 +49,16 @@ class NavBar extends React.Component {
                 <Link to="/course"> Example Course</Link>{" "}
               </NavDropdown.Item>
             </NavDropdown>
+            {this.state.user.split(" ")[0] == "UCID" ||
+            this.state.user.split(" ")[0] == "Alumni_ID" ? (
+              <Link to="/messenger" className="navbar-brand">
+                {" "}
+                Messenger
+              </Link>
+            ) : (
+              <span />
+            )}
 
-            <Link to="/messenger" className="navbar-brand">
-              {" "}
-              Messenger
-            </Link>
             {/* <a className="navbar-brand" href="#">
             Messenger!{" "}
           </a> */}
