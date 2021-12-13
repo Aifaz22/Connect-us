@@ -43,9 +43,9 @@ function App() {
         <p />
       )} */}
       <Routes>
-        <Route path="/" element={<Profile />} />
+        <Route path="/" element={<Login />} />
         <Route path="/messenger" element={<Messenger />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/course" element={<CourseOverview />} />
         <Route path="/register" element={<RegisterUser />} />
         <Route path="/addPost" element={<AddPost />} />
