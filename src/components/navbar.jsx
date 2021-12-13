@@ -38,7 +38,7 @@ class NavBar extends React.Component {
           >
             {/* <a className="navbar-brand" href="#">
             Profile</a> */}
-            <Link to="/" className="navbar-brand">
+            <Link to="/profile" className="navbar-brand">
               {" "}
               Profile
             </Link>
@@ -74,7 +74,7 @@ class NavBar extends React.Component {
               </button>
             </form>
             <Link
-              to="/login"
+              to="/"
               className="navbar-brand border border-danger"
               onClick={() => {
                 sessionStorage.clear();
