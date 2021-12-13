@@ -27,6 +27,7 @@ class RegisterUser extends React.Component {
     // Alumni_ID,
     // SIN
     {
+      console.log("user type:" + this.state.usertype);
       const body = {
         username: this.state.username,
         email: this.state.email,

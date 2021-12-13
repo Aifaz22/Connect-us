@@ -58,6 +58,8 @@ class Profile extends React.Component {
         self.setState({
           name: response.data[0].Fname + " " + response.data[0].Lname,
           sinDepartment: response.data[0].Dname,
+          currentEmployment: response.data[0].Current_employer,
+          currentPosition: response.data[0].Position,
         });
       })
       .catch(function (error) {
@@ -193,18 +195,66 @@ class Profile extends React.Component {
     } else if (userArr[0] === "Alumni_ID") {
       //is Alumni
       // get all completed courses
-      // get employment
+      const response2 = await axios
+        .get("http://localhost:3000/api/Completed/" + userArr[1], config)
+        .then(function (response2) {
+          //******************************************************************* */
+          console.log(response2.data);
+          self.setState({
+            allCourses: response2.data,
+          });
+        })
+        .catch(function (error) {
+          console.log(error);
+          // console.log("XXXXXXXXXXXXXXXXXXXXX");
+          errorFound = true;
+        });
+
       // get degrees
+      const response3 = await axios
+        .get("http://localhost:3000/api/Degree/" + userArr[1], config)
+        .then(function (response3) {
+          //******************************************************************* */
+          console.log(response3.data);
+          self.setState({
+            Degrees: response3.data,
+          });
+        })
+        .catch(function (error) {
+          console.log(error);
+          // console.log("XXXXXXXXXXXXXXXXXXXXX");
+          errorFound = true;
+        });
     } else {
       //is Admin :)
     }
   };
   componentDidMount = async () => {
+    const queryParams = new URLSearchParams(window.location.search);
+    //use for other profiles******************
+    console.log("=========================================================");
+    console.log(queryParams.get("id"));
+    console.log("=========================================================");
+    this.setState({
+      id: "N 2",
+      name: "",
+      currentCourses: [],
+      allCourses: [],
+      taCourses: [],
+      Major: [],
+      Minor: [],
+      Degrees: [],
+      Research: [],
+      currentEmployment: "",
+      currentPosition: "",
+      inProgress: 1,
+      sinDepartment: "",
+    });
     await this.getUser();
   };
   render() {
     console.log(this.state.id);
-
+    console.log(this.state.currentEmployment);
     return (
       <React.Fragment>
         <div>
@@ -215,16 +265,30 @@ class Profile extends React.Component {
             {this.state.inProgress >= 0 ? (
               <h4>
                 Degree -
-                {this.state.inProgress == 1 ? (
+                {this.state.inProgress === 1 ? (
                   <b> in progress</b>
                 ) : (
-                  <b> completed</b>
+                  <div>
+                    <b> completed</b>
+                    {this.state.currentEmployment !== null && (
+                      <div>
+                        <h5>
+                          {this.state.currentPosition !== null ? (
+                            <i>{this.state.currentPosition}</i>
+                          ) : (
+                            <i>Works</i>
+                          )}{" "}
+                          @ {this.state.currentEmployment}
+                        </h5>
+                      </div>
+                    )}
+                  </div>
                 )}
               </h4>
             ) : (
               <h4> Instructor in {this.state.sinDepartment} department</h4>
             )}
-            {this.state.id.split(" ")[0] == "UCID" && (
+            {this.state.id.split(" ")[0] === "UCID" && (
               <h2 style={{ marginTop: "1.5%" }}>
                 Major:{" "}
                 {this.state.Major.map((elem) => (
@@ -237,35 +301,59 @@ class Profile extends React.Component {
               </h2>
             )}
             {/* {this.state.Major} */}
-            {this.state.id.split(" ")[0] == "UCID" && (
-              <h2
-                style={{
-                  float: "right",
-                  marginRight: "5%",
-                  marginTop: "-5%",
-                }}
-              >
-                TA of Courses:
-                <span
+            {this.state.id.split(" ")[0] === "UCID" &&
+              this.state.taCourses.length > 0 && (
+                <h2
                   style={{
-                    clear: "both",
-                    fontFamily: "Titillium Web",
-                    fontWeight: "700",
-                    marginTop: "15%",
-                    fontSize: "20px",
+                    float: "right",
+                    marginRight: "5%",
+                    marginTop: "-5%",
                   }}
                 >
-                  <ul className="list-group list-group-flush">
-                    {this.state.taCourses.map((elem) => (
-                      <li className="list-group-item">
-                        {elem.Course_name} {elem.Course_term}
-                        {elem.Course_year}{" "}
-                      </li>
-                    ))}
-                  </ul>
-                </span>
-              </h2>
-            )}
+                  TA of Courses:
+                  <span
+                    style={{
+                      clear: "both",
+                      fontFamily: "Titillium Web",
+                      fontWeight: "700",
+                      marginTop: "15%",
+                      fontSize: "20px",
+                    }}
+                  >
+                    <ul className="list-group list-group-flush">
+                      {this.state.taCourses.map((elem) => (
+                        <li className="list-group-item">
+                          {elem.Course_name} {elem.Course_term}
+                          {elem.Course_year}{" "}
+                        </li>
+                      ))}
+                    </ul>
+                  </span>
+                </h2>
+              )}
+            {/* {this.state.id.split(" ")[0] === "Alumni_ID" &&
+              this.state.currentEmployment !== null && (
+                <h2
+                  style={{
+                    float: "right",
+                    marginRight: "5%",
+                    marginTop: "-5%",
+                  }}
+                >
+                  Employment:
+                  <span
+                    style={{
+                      clear: "both",
+                      fontFamily: "Titillium Web",
+                      fontWeight: "700",
+                      marginTop: "15%",
+                      fontSize: "20px",
+                    }}
+                  >
+                    {this.state.currentEmployment} - {this.state.position}
+                  </span>
+                </h2>
+              )} */}
             <h2 style={{ float: "right", marginRight: "5%", marginTop: "-5%" }}>
               All Courses
               <span
@@ -287,7 +375,7 @@ class Profile extends React.Component {
                 </ul>
               </span>
             </h2>
-            {this.state.id.split(" ")[0] == "UCID" && (
+            {this.state.id.split(" ")[0] === "UCID" && (
               <div
                 style={{
                   position: "relative",
@@ -320,7 +408,7 @@ class Profile extends React.Component {
                 </h2>
               </div>
             )}
-            {this.state.id.split(" ")[0] == "SIN" && (
+            {this.state.id.split(" ")[0] === "SIN" && (
               <div
                 style={{
                   position: "relative",
@@ -352,7 +440,7 @@ class Profile extends React.Component {
                 </h2>
               </div>
             )}
-            {this.state.id.split(" ")[0] == "Alumni_ID" && (
+            {this.state.id.split(" ")[0] === "Alumni_ID" && (
               <div
                 style={{
                   position: "relative",

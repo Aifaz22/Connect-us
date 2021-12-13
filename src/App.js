@@ -25,14 +25,14 @@ import { render } from "@testing-library/react";
 }
 
 function App() {
-  var tokenPresent = sessionStorage.getItem("token") != undefined;
+  var tokenPresent = sessionStorage.getItem("token") !== null;
   console.log(tokenPresent);
   return (
     <div className="App">
       <h1>ConnectUs</h1>
       {/* <Login/> */}
       {/* <RegisterUser/> */}
-      {!(sessionStorage.getItem("token") !== undefined) ? <p /> : <NavBar />}
+      {tokenPresent && <NavBar />}
 
       {/* when navigating goes to infinite loop*********************************************
       {!tokenPresent ? (
