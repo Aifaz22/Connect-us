@@ -20,30 +20,22 @@ class CoursePosts extends Component {
     content: "This is test post 2"
     creationTime: "2021-11-25T08:13:14.000Z"
     */
-    posts: [],
-    posts1: [
+    posts: [
       {
-        title: "Test title",
-        text: "Sunt anim velit non ipsum excepteur tempor esse. Nulla sint qui anim dolor tempor culpa consectetur dolore fugiat. Consectetur ex aliquip eu labore elit irure culpa deserunt ad est aliquip. Enim eu ipsum laboris cupidatat culpa laboris ullamco minim ea. Ad fugiat reprehenderit sint aute et aute nostrud id nulla. Nisi sunt irure aliqua elit.",
-        author: "Jim",
-        dateTime: "09/22/2021 13:04",
-        comments: "1",
-      },
-      {
-        title: "Checkmate",
-        text: "Esse eiusmod consequat laboris dolore officia do. Commodo ad officia culpa nostrud sit quis occaecat magna sint dolore aliquip dolor id culpa. Occaecat adipisicing anim minim sint aute ex nisi excepteur pariatur anim minim nisi enim ut.",
-        author: "Joe",
-        dateTime: "10/11/2021 07:31",
-        comments: "5",
-      },
-      {
-        title: "Test title",
-        text: "Sunt anim velit non ipsum excepteur tempor esse. Nulla sint qui anim dolor tempor culpa consectetur dolore fugiat. Consectetur ex aliquip eu labore elit irure culpa deserunt ad est aliquip. Enim eu ipsum laboris cupidatat culpa laboris ullamco minim ea. Ad fugiat reprehenderit sint aute et aute nostrud id nulla. Nisi sunt irure aliqua elit.",
-        author: "Eliza",
-        dateTime: "01/05/2019 16:21",
-        comments: "0",
+        Author_id: 14,
+        Course_name: "cpsc471",
+        Course_term: "Fall",
+        Course_year: 2021,
+        Dept_id: 1,
+        Fname: "Sergio",
+        Lname: "Ramos",
+        Post_id: 4,
+        Post_type: "Note",
+        content: "This is test post 2",
+        creationTime: "2021-11-25T08:13:14.000Z",
       },
     ],
+    comments: {},
   };
 
   // /Feed_post/:name/:year/:term/:dept
@@ -59,11 +51,14 @@ class CoursePosts extends Component {
         `http://localhost:3000/api/Feed_post/${self.state.cname}/${self.state.cyear}/${self.state.cterm}/${self.state.cdept_id}`,
         config
       )
-      .then(function (response) {
+      .then(async (response) => {
         //******************************************************************* */
         console.log(response.data);
         self.setState({
           posts: response.data,
+        });
+        await this.state.posts.map(async (post, index) => {
+          await this.getComments(post.Post_id, post.Author_id, index);
         });
       })
       .catch(function (error) {
@@ -72,14 +67,36 @@ class CoursePosts extends Component {
         errorFound = true;
       });
   };
-  getComments = (pid, paid) => {};
+  getComments = async (pid, paid, index) => {
+    var self = this;
+    var errorFound = false;
+    var token = sessionStorage.getItem("token");
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    const response = await axios
+      .get(`http://localhost:3000/api/Post_comment/${pid}/${paid}`, config)
+      .then((response) => {
+        //******************************************************************* */
+        let comments = this.state.comments;
+        comments = { ...comments, [pid]: response.data };
+        this.setState({ comments: comments });
+        console.log(self.state.comments[pid].length);
+        console.log("pid: " + typeof pid);
+        // console.log(self.state.posts[index].comments.length);
+      })
+      .catch(function (error) {
+        console.log(error);
+        // console.log("XXXXXXXXXXXXXXXXXXXXX");
+        errorFound = true;
+      });
+  };
+
   componentDidMount = async () => {
     await this.getPosts();
-    await this.state.posts.map(async (post) => {
-      this.getComments(post.Post_id, post.Author_id);
-    });
   };
-  render() {
+  render = () => {
+    console.log(this.state);
     return (
       <section style={{ width: "100%" }}>
         <h5 style={{ marginTop: "2%" }}>
@@ -96,11 +113,15 @@ class CoursePosts extends Component {
             marginTop: "3%",
             overflow: "auto",
             display: "flex",
-            flexDirection: "column-reverse",
+            flexDirection: "column",
             marginBottom: "3px",
           }}
         >
-          {this.state.posts.reverse().map((post) => {
+          {this.state.posts.map((post, index) => {
+            console.log(Array.isArray(this.state.comments[post.Post_id]));
+            if (this.state.comments[post.Post_id] !== undefined)
+              console.log(this.state.comments[post.Post_id].length);
+
             return (
               <li
                 style={{
@@ -109,6 +130,7 @@ class CoursePosts extends Component {
                   marginTop: "3%",
                   textAlign: "left",
                 }}
+                // onClick={}
               >
                 <div
                   className="PostElement"
@@ -147,10 +169,13 @@ class CoursePosts extends Component {
                   </div>
                 </div>
                 <p style={{ marginBottom: "0%" }}>
-                  Comments: 0
-                  {
-                    //post.comments
-                  }{" "}
+                  Comments:{" "}
+                  {this.state.comments[post.Post_id] !== undefined ? (
+                    this.state.comments[post.Post_id].length
+                  ) : (
+                    <i>0</i>
+                  )}
+                  {/* {this.state.comments[post.Post_id].length} */}
                 </p>
               </li>
             );
@@ -158,7 +183,7 @@ class CoursePosts extends Component {
         </ul>
       </section>
     );
-  }
+  };
 }
 
 export default CoursePosts;
