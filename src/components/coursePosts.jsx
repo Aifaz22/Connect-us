@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import CommentForm from "./commentForm";
 
 class CoursePosts extends Component {
   state = {
@@ -36,6 +37,8 @@ class CoursePosts extends Component {
       },
     ],
     comments: {},
+    showComments: {},
+    commentPost: "",
   };
 
   // /Feed_post/:name/:year/:term/:dept
@@ -81,6 +84,9 @@ class CoursePosts extends Component {
         let comments = this.state.comments;
         comments = { ...comments, [pid]: response.data };
         this.setState({ comments: comments });
+        this.setState({
+          showComments: { ...this.state.showComments, [pid]: false },
+        });
         console.log(self.state.comments[pid].length);
         console.log("pid: " + typeof pid);
         // console.log(self.state.posts[index].comments.length);
@@ -92,8 +98,18 @@ class CoursePosts extends Component {
       });
   };
 
+  toggleComment = (pid) => {
+    this.setState({
+      showComments: {
+        ...this.state.showComments,
+        [pid]: !this.state.showComments[pid],
+      },
+    });
+    console.log(this.state.showComments[pid]);
+  };
   componentDidMount = async () => {
     await this.getPosts();
+    this.state.posts.map((p) => console.log(this.state.comments[p.Post_id]));
   };
   render = () => {
     console.log(this.state);
@@ -168,15 +184,43 @@ class CoursePosts extends Component {
                     {post.content}
                   </div>
                 </div>
-                <p style={{ marginBottom: "0%" }}>
-                  Comments:{" "}
+                <div
+                  style={{ marginBottom: "0%" }}
+                  onClick={() => this.toggleComment(post.Post_id)}
+                >
+                  Toggle Comments:{" "}
                   {this.state.comments[post.Post_id] !== undefined ? (
                     this.state.comments[post.Post_id].length
                   ) : (
                     <i>0</i>
                   )}
-                  {/* {this.state.comments[post.Post_id].length} */}
-                </p>
+                </div>
+                {this.state.showComments[post.Post_id] && (
+                  <div>
+                    {this.state.comments[post.Post_id] !== undefined ? (
+                      <div>
+                        <CommentForm pid={post.Post_id} paid={post.Author_id} />
+                        <hr />
+                        {this.state.comments[post.Post_id].map((comment) => {
+                          return (
+                            <div
+                              style={{
+                                fontSize: "13px",
+                              }}
+                            >
+                              {comment.Fname} {comment.Lname}
+                              {comment.creationTime.split("T")[0]}{" "}
+                              <h6>{comment.Content}</h6>
+                              <hr />
+                            </div>
+                          );
+                        })}
+                      </div>
+                    ) : (
+                      <div></div>
+                    )}
+                  </div>
+                )}
               </li>
             );
           })}
