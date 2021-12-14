@@ -82,6 +82,7 @@ class Login extends React.Component {
         <form
           onSubmit={(event) => {
             this.signIn();
+            updateText();
             event.preventDefault();
             // navigate("/NavBar");
           }}
@@ -149,7 +150,9 @@ class Login extends React.Component {
 //     </div>
 //   );
 // }
-
+const updateText = () => {
+  this.setState({ something: {} });
+};
 export default Login;
 
 {

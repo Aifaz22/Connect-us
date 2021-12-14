@@ -6,29 +6,36 @@ import MainContent from "./maincontent";
 import Messenger from "./messenger";
 import Profile from "./profile";
 import Login from "./login";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useParams } from "react-router-dom";
 import Courses from "./courses";
 
 class NavBar extends React.Component {
   state = {
-    user: "X 1",
+    user: "",
   };
   componentDidMount = () => {
     var user = "";
     if (sessionStorage.getItem("userUCID") !== "null") {
       user = "UCID " + sessionStorage.getItem("userUCID");
+      this.setState({ user: user });
     } else if (sessionStorage.getItem("userSIN") !== "null") {
       user = "SIN " + sessionStorage.getItem("userSIN");
+      this.setState({ user: user });
     } else if (sessionStorage.getItem("userAlumni") !== "null") {
       user = "Alumni_ID " + sessionStorage.getItem("userAlumni");
+      this.setState({ user: user });
     } else if (sessionStorage.getItem("userAdmin") !== "null") {
       user = "Admin_ID " + sessionStorage.getItem("userAdmin");
+      this.setState({ user: user });
     } else {
       return;
     }
-    this.setState({ user: user });
   };
   render() {
+    console.log(this.state.user);
+    // var ucidlink = "/profile/" + this.state.user.split(" ")[1] + "/null/null";
+    // var sinlink = "/profile/null/" + this.state.user.split(" ")[1] + "/null";
+    // var alumlink = "/profile/null/null/" + this.state.user.split(" ")[1];
     return (
       <div>
         <nav className="navbar navbar-dark bg-dark">
@@ -38,25 +45,47 @@ class NavBar extends React.Component {
           >
             {/* <a className="navbar-brand" href="#">
             Profile</a> */}
+            {/* {this.state.user.split(" ")[0] == "UCID" && (
+              <Link to={ucidlink} className="navbar-brand">
+                {" "}
+                Profile
+              </Link>
+            )}
+            {this.state.user.split(" ")[0] == "SIN" && (
+              <Link to={sinlink} className="navbar-brand">
+                {" "}
+                Profile
+              </Link>
+            )}
+            {this.state.user.split(" ")[0] == "Alumni_ID" && (
+              <Link to={alumlink} className="navbar-brand">
+                {" "}
+                Profile
+              </Link>
+            )} */}
             <Link to="/profile" className="navbar-brand">
               {" "}
               Profile
             </Link>
             {/* <a className = "navbar-brand" href ="#"><span><Courses/></span> </a> */}
-
-            <NavDropdown title="Courses" className="navbar-brand " id="warning">
-              <NavDropdown.Item>
-                <Link to="/course"> Example Course</Link>{" "}
-              </NavDropdown.Item>
-            </NavDropdown>
-            {this.state.user.split(" ")[0] == "UCID" ||
-            this.state.user.split(" ")[0] == "Alumni_ID" ? (
+            {(this.state.user.split(" ")[0] == "UCID" ||
+              this.state.user.split(" ")[0] == "SIN") && (
+              <NavDropdown
+                title="Courses"
+                className="navbar-brand "
+                id="warning"
+              >
+                <NavDropdown.Item>
+                  <Link to="/course"> Example Course</Link>{" "}
+                </NavDropdown.Item>
+              </NavDropdown>
+            )}
+            {(this.state.user.split(" ")[0] == "UCID" ||
+              this.state.user.split(" ")[0] == "Alumni_ID") && (
               <Link to="/messenger" className="navbar-brand">
                 {" "}
                 Messenger
               </Link>
-            ) : (
-              <span />
             )}
 
             {/* <a className="navbar-brand" href="#">
@@ -78,6 +107,8 @@ class NavBar extends React.Component {
               className="navbar-brand border border-danger"
               onClick={() => {
                 sessionStorage.clear();
+                updateText();
+                this.setState({ user: "" });
               }}
             >
               Sign Out
@@ -96,5 +127,7 @@ class NavBar extends React.Component {
     );
   }
 }
-
+const updateText = () => {
+  this.setState({ something: {} });
+};
 export default NavBar;

@@ -3,22 +3,28 @@ import Courses from "./courses";
 import pictureUofC from "../UofCLogo.jpg";
 import axios from "axios";
 import { Link } from "react-router-dom";
+// import { useParams } from "react-router";
 class Profile extends React.Component {
-  state = {
-    id: "N 2",
-    name: "",
-    currentCourses: [],
-    allCourses: [],
-    taCourses: [],
-    Major: [],
-    Minor: [],
-    Degrees: [],
-    Research: [],
-    currentEmployment: "",
-    currentPosition: "",
-    inProgress: 1,
-    sinDepartment: "",
-  };
+  constructor(props) {
+    super();
+    this.state = {
+      id: "N 2",
+      name: "",
+      currentCourses: [],
+      allCourses: [],
+      taCourses: [],
+      Major: [],
+      Minor: [],
+      Degrees: [],
+      Research: [],
+      currentEmployment: "",
+      currentPosition: "",
+      inProgress: 1,
+      sinDepartment: "",
+      showMessageBtn: true,
+    };
+  }
+
   getUser = async () => {
     var body = {};
     var errorFound = false;
@@ -48,7 +54,15 @@ class Profile extends React.Component {
       errorFound = true;
       return;
     }
-
+    console.log(this.props);
+    // if (ucid !== "null" && sessionStorage.getItem("userUCID") === ucid) {
+    //   //both same users
+    //   this.setState({ showMessageBtn: false });
+    // }
+    // if (alumid !== "null" && sessionStorage.getItem("userAlumni") === alumid) {
+    //   //both same users
+    //   this.setState({ showMessageBtn: false });
+    // }
     console.log(URL);
     var self = this;
     const response = await axios
@@ -232,6 +246,7 @@ class Profile extends React.Component {
   };
   componentDidMount = async () => {
     const queryParams = new URLSearchParams(window.location.search);
+
     //use for other profiles******************
     console.log("=========================================================");
     console.log(queryParams.get("id"));
@@ -250,6 +265,7 @@ class Profile extends React.Component {
       currentPosition: "",
       inProgress: 1,
       sinDepartment: "",
+      showMessageBtn: true,
     });
     await this.getUser();
   };
@@ -261,9 +277,12 @@ class Profile extends React.Component {
         <div>
           {/* test */}
           <view style={{ flex: 1, flexDirection: "column", marginRight: "3%" }}>
-            <button style={{ right: "0%" }}>
-              <Link to="/messenger">Message</Link>
-            </button>
+            {(this.state.id.split(" ")[0] === "UCID" ||
+              this.state.id.split(" ")[0] === "Alumni_ID") && (
+              <button style={{ right: "0%" }}>
+                <Link to="/messenger">Message</Link>
+              </button>
+            )}
             <h2>{this.state.name}</h2>
 
             <img style={{ height: "15%", width: "15%" }} src={pictureUofC} />

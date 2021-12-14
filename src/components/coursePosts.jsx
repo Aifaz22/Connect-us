@@ -176,7 +176,7 @@ class CoursePosts extends Component {
                     {post.content}
                   </div>
                 </div>
-                <div
+                <button
                   style={{ marginBottom: "0%" }}
                   onClick={() => this.toggleComment(post.Post_id)}
                 >
@@ -186,7 +186,7 @@ class CoursePosts extends Component {
                   ) : (
                     <i>0</i>
                   )}
-                </div>
+                </button>
                 {this.state.showComments[post.Post_id] && (
                   <div>
                     {this.state.comments[post.Post_id] !== undefined ? (

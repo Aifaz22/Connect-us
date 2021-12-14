@@ -12,6 +12,7 @@ import RegisterUser from "./components/register";
 import AddPost from "./components/addPost";
 import { render } from "@testing-library/react";
 import GroupMessenger from "./components/groupMessenger";
+import React, { Component } from "react";
 
 {
   /* <div className="App">
@@ -24,42 +25,50 @@ import GroupMessenger from "./components/groupMessenger";
       <RegisterUser />
       </div> */
 }
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { something: {} };
+  }
 
-function App() {
-  var tokenPresent = sessionStorage.getItem("token") !== null;
-  console.log(tokenPresent);
-  return (
-    <div className="App">
-      <h1>ConnectUs</h1>
-      {/* <Login/> */}
-      {/* <RegisterUser/> */}
-      {tokenPresent && <NavBar />}
+  render() {
+    var tokenPresent = sessionStorage.getItem("token") !== null;
+    console.log(tokenPresent);
 
-      {/* when navigating goes to infinite loop*********************************************
-      {!tokenPresent ? (
-        <div>
-          <Navigate to="/login" replace={true} />
-        </div>
-      ) : (
-        <p />
-      )} */}
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/messenger" element={<Messenger />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/course" element={<CourseOverview />} />
-        <Route path="/register" element={<RegisterUser />} />
-        <Route path="/addPost" element={<AddPost />} />
-        <Route path="/group-messenger" element={<GroupMessenger />} />
-      </Routes>
-      {/* <Routes> 
-         <Route path="/" element={<Login />} />
-           <Route path="/NavBar" element={<NavBar />} />
-         
-         </Routes>
-     */}
-    </div>
-  );
+    return (
+      <div className="App">
+        <h1>ConnectUs</h1>
+        {/* <Login/> */}
+        {/* <RegisterUser/> */}
+        {tokenPresent && <NavBar />}
+
+        {/* when navigating goes to infinite loop*********************************************
+        {!tokenPresent ? (
+          <div>
+            <Navigate to="/login" replace={true} />
+          </div>
+        ) : (
+          <p />
+        )} */}
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/messenger" element={<Messenger />} />
+          <Route path="/profile" element={<Profile />} />
+          {/* <Route path="/profile/:ucid/:sin/:alumid" element={<Profile />} /> */}
+          <Route path="/course" element={<CourseOverview />} />
+          <Route path="/register" element={<RegisterUser />} />
+          <Route path="/addPost" element={<AddPost />} />
+          <Route path="/group-messenger" element={<GroupMessenger />} />
+        </Routes>
+        {/* <Routes> 
+           <Route path="/" element={<Login />} />
+             <Route path="/NavBar" element={<NavBar />} />
+           
+           </Routes>
+       */}
+      </div>
+    );
+  }
 }
 
 export default App;
