@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Courses from "./courses";
 import pictureUofC from "../UofCLogo.jpg";
 import axios from "axios";
+import { Link } from "react-router-dom";
 class Profile extends React.Component {
   state = {
     id: "N 2",
@@ -260,7 +261,11 @@ class Profile extends React.Component {
         <div>
           {/* test */}
           <view style={{ flex: 1, flexDirection: "column", marginRight: "3%" }}>
+            <button style={{ right: "0%" }}>
+              <Link to="/messenger">Message</Link>
+            </button>
             <h2>{this.state.name}</h2>
+
             <img style={{ height: "15%", width: "15%" }} src={pictureUofC} />
             {this.state.inProgress >= 0 ? (
               <h4>

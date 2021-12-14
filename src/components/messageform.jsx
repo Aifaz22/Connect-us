@@ -36,11 +36,14 @@ class MessageForm extends React.Component {
         message_content: this.state.message_content,
         R_UCID: null,
         R_ID: null,
-        R_Course_name: chatterArr[1],
-        R_Course_year: chatterArr[2],
-        R_Course_term: chatterArr[3],
-        R_Dept_id: chatterArr[4],
+        R_Course_name: chatterArr[0],
+        R_Course_year: chatterArr[1],
+        R_Course_term: chatterArr[2],
+        R_Dept_id: chatterArr[3],
       };
+      console.log(
+        `${body.R_UCID} ${body.R_ID} ${body.R_Course_name} ${body.R_Course_term} ${body.R_Course_year} ${body.R_Dept_id}`
+      );
     }
 
     var token = sessionStorage.getItem("token");
@@ -60,6 +63,7 @@ class MessageForm extends React.Component {
       });
   };
   render() {
+    const arr = this.props.chatter.split(" ");
     return (
       <form
         className="send-message-form"
@@ -71,22 +75,43 @@ class MessageForm extends React.Component {
           // navigate("/NavBar");
         }}
       >
-        <input
-          id="messageWriteInput"
-          //onChange={this.handleChange}
-          //value={this.state.message}
-          placeholder="Type your message and hit ENTER"
-          type="text"
-          style={{
-            position: "fixed",
-            bottom: "1%",
-            width: "70%",
-            paddingLeft: "8px",
-            paddingTop: "6px",
-            paddingBottom: "6px",
-          }}
-          onChange={(e) => this.setState({ message_content: e.target.value })}
-        />
+        {arr[0] !== "UCID" && arr[0] !== "ID" ? (
+          <input
+            id="messageWriteInput"
+            //onChange={this.handleChange}
+            //value={this.state.message}
+            placeholder="Type your message and hit ENTER"
+            type="text"
+            style={{
+              position: "fixed",
+              bottom: "1%",
+              width: "88%",
+              paddingLeft: "8px",
+              paddingTop: "6px",
+              paddingBottom: "6px",
+              left: "2%",
+            }}
+            onChange={(e) => this.setState({ message_content: e.target.value })}
+          />
+        ) : (
+          <input
+            id="messageWriteInput"
+            //onChange={this.handleChange}
+            //value={this.state.message}
+            placeholder="Type your message and hit ENTER"
+            type="text"
+            style={{
+              position: "fixed",
+              bottom: "1%",
+              width: "70%",
+              paddingLeft: "8px",
+              paddingTop: "6px",
+              paddingBottom: "6px",
+            }}
+            onChange={(e) => this.setState({ message_content: e.target.value })}
+          />
+        )}
+
         <button
           id="messageSendInput"
           type="submit"

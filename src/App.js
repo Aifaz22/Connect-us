@@ -11,6 +11,7 @@ import CourseOverview from "./components/courseOverview";
 import RegisterUser from "./components/register";
 import AddPost from "./components/addPost";
 import { render } from "@testing-library/react";
+import GroupMessenger from "./components/groupMessenger";
 
 {
   /* <div className="App">
@@ -49,6 +50,7 @@ function App() {
         <Route path="/course" element={<CourseOverview />} />
         <Route path="/register" element={<RegisterUser />} />
         <Route path="/addPost" element={<AddPost />} />
+        <Route path="/group-messenger" element={<GroupMessenger />} />
       </Routes>
       {/* <Routes> 
          <Route path="/" element={<Login />} />

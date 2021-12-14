@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import CommentForm from "./commentForm";
+import { Link } from "react-router-dom";
 
 class CoursePosts extends Component {
   state = {
@@ -21,21 +22,7 @@ class CoursePosts extends Component {
     content: "This is test post 2"
     creationTime: "2021-11-25T08:13:14.000Z"
     */
-    posts: [
-      {
-        Author_id: 14,
-        Course_name: "cpsc471",
-        Course_term: "Fall",
-        Course_year: 2021,
-        Dept_id: 1,
-        Fname: "Sergio",
-        Lname: "Ramos",
-        Post_id: 4,
-        Post_type: "Note",
-        content: "This is test post 2",
-        creationTime: "2021-11-25T08:13:14.000Z",
-      },
-    ],
+    posts: [],
     comments: {},
     showComments: {},
     commentPost: "",
@@ -115,17 +102,22 @@ class CoursePosts extends Component {
     console.log(this.state);
     return (
       <section style={{ width: "100%" }}>
+        <br></br>
+        <button>
+          <Link to="/group-messenger">Group Messenger</Link>
+        </button>
         <h5 style={{ marginTop: "2%" }}>
           {this.state.cname}-{this.state.cterm}
           {this.state.cyear} Feed
         </h5>
+
         <ul
           style={{
             paddingRight: "1%",
             width: "85%",
             float: "left",
             listStyle: "none",
-            height: "70%",
+            height: "45%",
             marginTop: "3%",
             overflow: "auto",
             display: "flex",

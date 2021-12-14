@@ -45,13 +45,13 @@ class AddPost extends React.Component {
       <div
         className="col-md-5"
         style={{
-          marginTop: "15%",
+          marginTop: "5%",
           paddingRight: "3%",
         }}
       >
-        <h1> Course Example info above</h1>
+        {/* <h1> Course Example info above</h1> */}
         <div className="form-area">
-          <h3>Post a discussion </h3>
+          <h2>Post a discussion </h2>
           <form
             role="form"
             onSubmit={async (event) => {
@@ -65,7 +65,7 @@ class AddPost extends React.Component {
               // navigate("/NavBar");
             }}
           >
-            <br styles="clear:both" />
+            <br />
             <div className="form-group" style={{ marginBottom: "3%" }}>
               <select
                 defaultValue={"Question"}
