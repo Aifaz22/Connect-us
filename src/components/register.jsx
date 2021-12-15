@@ -202,7 +202,7 @@ class RegisterUser extends React.Component {
         ) : (
           <p></p>
         )}
-        <Link to="/login" className="navbar-brand">
+        <Link to="/" className="navbar-brand">
           {" "}
           Already have an account? Log In
         </Link>
