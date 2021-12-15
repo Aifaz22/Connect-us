@@ -176,6 +176,37 @@ class CoursePosts extends Component {
         errorFound = true;
       });
   };
+  delComment = async (cid, pid) => {
+    var self = this;
+    var errorFound = false;
+    var token = sessionStorage.getItem("token");
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    const response = await axios
+      .delete("http://localhost:3000/api/Post_comment/" + cid, config)
+      .then((response) => {
+        //******************************************************************* */
+        console.log(response.data);
+        var temp = [];
+        for (const comm of this.state.comments[pid]) {
+          if (comm.Comment_id !== cid) {
+            temp.push(comm);
+          }
+        }
+        let comments = this.state.comments;
+        comments = { ...comments, [pid]: temp };
+        this.setState({ comments: comments });
+        // this.state.comments[pid] = temp;
+        // this.setState({ comments: temp });
+        // console.log(self.state.posts[index].comments.length);
+      })
+      .catch(function (error) {
+        console.log(error);
+        // console.log("XXXXXXXXXXXXXXXXXXXXX");
+        errorFound = true;
+      });
+  };
   getAuthorId = async () => {
     var URL = "http://localhost:3000/api/Author/";
     if (sessionStorage.getItem("userUCID") !== "null") {
@@ -348,6 +379,18 @@ class CoursePosts extends Component {
                             >
                               {comment.Fname} {comment.Lname}
                               {comment.creationTime.split("T")[0]}{" "}
+                              {comment.Author_id == this.state.userAuthorID && (
+                                <button
+                                  onClick={(e) =>
+                                    this.delComment(
+                                      comment.Comment_id,
+                                      post.Post_id
+                                    )
+                                  }
+                                >
+                                  Delete
+                                </button>
+                              )}
                               <h6>{comment.Content}</h6>
                               <hr />
                             </div>
