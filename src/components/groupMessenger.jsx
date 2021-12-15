@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import MessageForm from "./messageform";
 import GroupMessageList from "./groupMessageList";
+import axios from "axios";
 class GroupMessenger extends Component {
   constructor(props) {
     super(props);
@@ -12,9 +13,29 @@ class GroupMessenger extends Component {
   }
   enabilityCheck = async (x) => {
     const chatterArr = x.trim().split(" ");
-    var URL = `http://localhost:3000/api/Get_group_message/${chatterArr[0]}/${
-      chatterArr[1]
-    }/${chatterArr[2]}/${chatterArr[3].trim()}`;
+    var URL = `http://localhost:3000/api/Course-group/isEnabled/${
+      chatterArr[0]
+    }/${chatterArr[1]}/${chatterArr[2]}/${chatterArr[3].trim()}`;
+    var errorFound = false;
+    var token = sessionStorage.getItem("token");
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    var self = this;
+    const response = await axios
+      .get(URL, config)
+      .then(function (response) {
+        //******************************************************************* */
+        console.log(response.data);
+        self.setState({
+          enabled: response.data[0].Enabled,
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+        // console.log("XXXXXXXXXXXXXXXXXXXXX");
+        errorFound = true;
+      });
   };
   componentDidMount = () => {
     this.enabilityCheck(this.state.chatter);

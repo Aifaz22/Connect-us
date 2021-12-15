@@ -38,7 +38,7 @@ class GroupMessageList extends Component {
       .get(URL, config)
       .then(function (response) {
         console.log(response.data);
-        self.setState({ messages: response.data });
+        self.setState({ messages: response.data.reverse() });
       })
       .catch(function (error) {
         console.log(error);
@@ -114,7 +114,7 @@ class GroupMessageList extends Component {
             bottom: "20",
           }}
         >
-          {this.state.messages.reverse().map((message) => {
+          {this.state.messages.map((message) => {
             return (
               <li
                 style={{

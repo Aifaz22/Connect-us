@@ -276,6 +276,21 @@ class Profile extends React.Component {
       <React.Fragment>
         <div>
           {/* test */}
+          {this.state.id.split(" ")[0] === "UCID" && (
+            <button style={{ marginLeft: "0", display: "block  " }}>
+              <Link to="/editProfile">Edit Profile</Link>
+            </button>
+          )}
+          {this.state.id.split(" ")[0] === "SIN" && (
+            <button style={{ marginLeft: "0", display: "block  " }}>
+              <Link to="/editSinProfile">Edit Profile</Link>
+            </button>
+          )}
+          {this.state.id.split(" ")[0] === "Alumni_ID" && (
+            <button style={{ marginLeft: "0", display: "block  " }}>
+              <Link to="/editAlumProfile">Edit Profile</Link>
+            </button>
+          )}
           <view style={{ flex: 1, flexDirection: "column", marginRight: "3%" }}>
             {(this.state.id.split(" ")[0] === "UCID" ||
               this.state.id.split(" ")[0] === "Alumni_ID") && (

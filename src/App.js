@@ -13,6 +13,9 @@ import AddPost from "./components/addPost";
 import { render } from "@testing-library/react";
 import GroupMessenger from "./components/groupMessenger";
 import React, { Component } from "react";
+import EditProfile from "./components/editProfile";
+import EditSinProfile from "./components/editSinProfile";
+import EditAlumProfile from "./components/editAlumProfile";
 
 {
   /* <div className="App">
@@ -59,6 +62,9 @@ class App extends Component {
           <Route path="/register" element={<RegisterUser />} />
           <Route path="/addPost" element={<AddPost />} />
           <Route path="/group-messenger" element={<GroupMessenger />} />
+          <Route path="/editProfile" element={<EditProfile />} />
+          <Route path="/editSinProfile" element={<EditSinProfile />} />
+          <Route path="/editAlumProfile" element={<EditAlumProfile />} />
         </Routes>
         {/* <Routes> 
            <Route path="/" element={<Login />} />

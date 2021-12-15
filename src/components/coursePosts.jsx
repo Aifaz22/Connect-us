@@ -9,6 +9,7 @@ class CoursePosts extends Component {
     cyear: "2021",
     cterm: "Fall",
     cdept_id: 1,
+    userAuthorID: -1,
     /*
     Author_id: 14
     Course_name: "cpsc471"
@@ -25,9 +26,32 @@ class CoursePosts extends Component {
     posts: [],
     comments: {},
     showComments: {},
+    groupMessengerStatus: 1,
     commentPost: "",
   };
-
+  enabilityCheck = async () => {
+    var URL = `http://localhost:3000/api/Course-group/isEnabled/${this.state.cname}/${this.state.cyear}/${this.state.cterm}/${this.state.cdept_id}`;
+    var errorFound = false;
+    var token = sessionStorage.getItem("token");
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    var self = this;
+    const response = await axios
+      .get(URL, config)
+      .then(function (response) {
+        //******************************************************************* */
+        console.log(response.data);
+        self.setState({
+          groupMessengerStatus: response.data[0].Enabled,
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+        // console.log("XXXXXXXXXXXXXXXXXXXXX");
+        errorFound = true;
+      });
+  };
   // /Feed_post/:name/:year/:term/:dept
   getPosts = async () => {
     var self = this;
@@ -84,7 +108,38 @@ class CoursePosts extends Component {
         errorFound = true;
       });
   };
-
+  toggleGroup = async () => {
+    var self = this;
+    var errorFound = false;
+    var token = sessionStorage.getItem("token");
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    var toggleVal = false;
+    if (this.state.groupMessengerStatus === 0) {
+      toggleVal = true;
+    } else {
+      toggleVal = false;
+    }
+    var body = {
+      toggleVal: toggleVal,
+    };
+    // /Course-group/:name/:year/:term/:D_id/:toggleVal
+    var URL = `http://localhost:3000/api/Course-group/${this.state.cname}/${this.state.cyear}/${this.state.cterm}/${this.state.cdept_id}`;
+    const response = await axios
+      .put(URL, body, config)
+      .then((response) => {
+        //******************************************************************* */
+        console.log(response.data);
+        self.setState({ groupMessengerStatus: toggleVal });
+        // console.log(self.state.posts[index].comments.length);
+      })
+      .catch(function (error) {
+        console.log(error);
+        // console.log("XXXXXXXXXXXXXXXXXXXXX");
+        errorFound = true;
+      });
+  };
   toggleComment = (pid) => {
     this.setState({
       showComments: {
@@ -94,8 +149,66 @@ class CoursePosts extends Component {
     });
     console.log(this.state.showComments[pid]);
   };
+  delPost = async (pid) => {
+    var self = this;
+    var errorFound = false;
+    var token = sessionStorage.getItem("token");
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    const response = await axios
+      .delete("http://localhost:3000/api/Feed_post/" + pid, config)
+      .then((response) => {
+        //******************************************************************* */
+        console.log(response.data);
+        var temp = [];
+        for (const post of this.state.posts) {
+          if (post.Post_id !== pid) {
+            temp.push(post);
+          }
+        }
+        this.setState({ posts: temp });
+        // console.log(self.state.posts[index].comments.length);
+      })
+      .catch(function (error) {
+        console.log(error);
+        // console.log("XXXXXXXXXXXXXXXXXXXXX");
+        errorFound = true;
+      });
+  };
+  getAuthorId = async () => {
+    var URL = "http://localhost:3000/api/Author/";
+    if (sessionStorage.getItem("userUCID") !== "null") {
+      URL += sessionStorage.getItem("userUCID") + "/-1";
+    } else if (sessionStorage.getItem("userSIN") !== "null") {
+      URL += "-1/" + sessionStorage.getItem("userSIN");
+    } else {
+      return;
+    }
+    var self = this;
+    var errorFound = false;
+    var token = sessionStorage.getItem("token");
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    const response = await axios
+      .get(URL, config)
+      .then((response) => {
+        //******************************************************************* */
+        console.log(response.data);
+        self.setState({ userAuthorID: response.data[0].Author_id });
+        // console.log(self.state.posts[index].comments.length);
+      })
+      .catch(function (error) {
+        console.log(error);
+        // console.log("XXXXXXXXXXXXXXXXXXXXX");
+        errorFound = true;
+      });
+  };
   componentDidMount = async () => {
     await this.getPosts();
+    await this.enabilityCheck();
+    await this.getAuthorId();
     this.state.posts.map((p) => console.log(this.state.comments[p.Post_id]));
   };
   render = () => {
@@ -103,9 +216,29 @@ class CoursePosts extends Component {
     return (
       <section style={{ width: "100%" }}>
         <br></br>
-        <button>
-          <Link to="/group-messenger">Group Messenger</Link>
-        </button>
+        {sessionStorage.getItem("userUCID") !== "null" && (
+          <button>
+            <Link to="/group-messenger">Group Messenger</Link>
+          </button>
+        )}
+        {sessionStorage.getItem("userSIN") !== "null" && (
+          <div>
+            Current Status:{" "}
+            {this.state.groupMessengerStatus == 0 ? (
+              <b>Disabled</b>
+            ) : (
+              <b>Enabled</b>
+            )}
+            <button
+              style={{ marginLeft: "3%" }}
+              onClick={(e) => {
+                this.toggleGroup();
+              }}
+            >
+              Toggle Group Messenger
+            </button>
+          </div>
+        )}
         <h5 style={{ marginTop: "2%" }}>
           {this.state.cname}-{this.state.cterm}
           {this.state.cyear} Feed
@@ -144,7 +277,20 @@ class CoursePosts extends Component {
                   className="PostElement"
                   style={{ fontSize: "25px", marginLeft: "1%" }}
                 >
-                  {post.Post_type}{" "}
+                  {post.Post_type}
+                  {this.state.userAuthorID == post.Author_id && (
+                    <button
+                      style={{
+                        fontSize: "13px",
+                        right: "70%",
+                      }}
+                      onClick={(e) => {
+                        this.delPost(post.Post_id);
+                      }}
+                    >
+                      Delete Post
+                    </button>
+                  )}
                   <p style={{ fontSize: "13px", marginBottom: "-3%" }}>
                     {" "}
                     Author: {post.Fname} {post.Lname}
