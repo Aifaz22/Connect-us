@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import MessageForm from "./messageform";
 import GroupMessageList from "./groupMessageList";
 import axios from "axios";
+import { Link } from "react-router-dom";
 class GroupMessenger extends Component {
   constructor(props) {
     super(props);
@@ -43,6 +44,9 @@ class GroupMessenger extends Component {
   render() {
     return (
       <div>
+        <Link to="/course">
+          <button>back to course</button>
+        </Link>
         <GroupMessageList
           chatterName="cpsc471 Fall2021"
           chatter="cpsc471 2021 Fall 1"
