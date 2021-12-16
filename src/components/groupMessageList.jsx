@@ -127,9 +127,13 @@ class GroupMessageList extends Component {
               >
                 <div className="MessageElement" style={{ fontSize: "12px" }}>
                   {"ID " + message.S_ID == this.state.userID ||
-                  "UCID " + message.S_UCID == this.state.userID
-                    ? this.state.userName
-                    : this.state.chatterName}{" "}
+                  "UCID " + message.S_UCID == this.state.userID ? (
+                    this.state.userName
+                  ) : (
+                    <span>
+                      {message.Fname} {message.Lname}
+                    </span>
+                  )}{" "}
                   <br />
                   <div
                     className="MessageText"

@@ -10,24 +10,13 @@ class CoursePosts extends Component {
     cterm: "Fall",
     cdept_id: 1,
     userAuthorID: -1,
-    /*
-    Author_id: 14
-    Course_name: "cpsc471"
-    Course_term: "Fall"
-    Course_year: 2021
-    Dept_id: 1
-    Fname: "Sergio"
-    Lname: "Ramos"
-    Post_id: 4
-    Post_type: "Note"
-    content: "This is test post 2"
-    creationTime: "2021-11-25T08:13:14.000Z"
-    */
     posts: [],
     comments: {},
     showComments: {},
     groupMessengerStatus: 1,
     commentPost: "",
+    Ta_ucid: -1,
+    ins_sin: -1,
   };
   enabilityCheck = async () => {
     var URL = `http://localhost:3000/api/Course-group/isEnabled/${this.state.cname}/${this.state.cyear}/${this.state.cterm}/${this.state.cdept_id}`;
@@ -236,10 +225,36 @@ class CoursePosts extends Component {
         errorFound = true;
       });
   };
+  getInstructors = async () => {
+    var URL = `http://localhost:3000/api/Course/instructors/${this.state.cname}/${this.state.cyear}/${this.state.cterm}/${this.state.cdept_id}`;
+    var self = this;
+    var errorFound = false;
+    var token = sessionStorage.getItem("token");
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    const response = await axios
+      .get(URL, config)
+      .then((response) => {
+        //******************************************************************* */
+        console.log(response.data);
+        self.setState({
+          Ta_ucid: response.data[0].TA_UCID,
+          ins_sin: response.data[0].SIN,
+        });
+        // console.log(self.state.posts[index].comments.length);
+      })
+      .catch(function (error) {
+        console.log(error);
+        // console.log("XXXXXXXXXXXXXXXXXXXXX");
+        errorFound = true;
+      });
+  };
   componentDidMount = async () => {
     await this.getPosts();
     await this.enabilityCheck();
     await this.getAuthorId();
+    await this.getInstructors();
     this.state.posts.map((p) => console.log(this.state.comments[p.Post_id]));
   };
   render = () => {
@@ -247,12 +262,18 @@ class CoursePosts extends Component {
     return (
       <section style={{ width: "100%" }}>
         <br></br>
-        {sessionStorage.getItem("userUCID") !== "null" && (
-          <button>
-            <Link to="/group-messenger">Group Messenger</Link>
-          </button>
-        )}
-        {sessionStorage.getItem("userSIN") !== "null" && (
+        {sessionStorage.getItem("userUCID") !== "null" &&
+          parseInt(sessionStorage.getItem("userUCID")) !=
+            this.state.Ta_ucid && (
+            <button>
+              <Link to="/group-messenger">Group Messenger</Link>
+            </button>
+          )}
+        {((sessionStorage.getItem("userSIN") !== "null" &&
+          parseInt(sessionStorage.getItem("userSIN")) == this.state.ins_sin) ||
+          (sessionStorage.getItem("userUCID") !== "null" &&
+            parseInt(sessionStorage.getItem("userUCID")) ==
+              this.state.Ta_ucid)) && (
           <div>
             Current Status:{" "}
             {this.state.groupMessengerStatus == 0 ? (

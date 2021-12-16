@@ -60,7 +60,7 @@ class Login extends React.Component {
           sessionStorage.setItem("userAlumni", response.data.user.Alumni_ID);
           sessionStorage.setItem("userAdmin", response.data.user.Admin_ID);
           sessionStorage.setItem("logged_in", true);
-          sessionStorage.setItem("messageIndex", 0);
+          sessionStorage.setItem("messageIndex", -1);
           //redirect to HomePage (profile?)
           //******************************************************************* */
         })

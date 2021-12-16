@@ -83,7 +83,10 @@ class Messenger extends React.Component {
   componentDidMount = async () => {
     console.log(this.state.index);
     await this.getList();
-    this.setChatter(this.state.index);
+    if (this.state.log == []) {
+      this.setChatter(this.state.index);
+    }
+
     console.log("DONE******************************************************");
   };
   render = () => {
@@ -126,7 +129,7 @@ class Messenger extends React.Component {
           </ul>
         </div>
         {/* Actual messages */}
-        {this.state.chatterName !== "" ? (
+        {this.state.chatterName !== "" && this.state.chatter !== "" ? (
           <div>
             <MessageList
               style={{ float: "right" }}
