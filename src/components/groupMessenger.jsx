@@ -44,9 +44,15 @@ class GroupMessenger extends Component {
   render() {
     return (
       <div>
-        <Link to="/course">
-          <button>back to course</button>
-        </Link>
+        <button
+          style={{ display: "block", position: "absolute", left: "10px" }}
+          className="btn btn-info"
+        >
+          <Link to="/course" style={{ color: "white" }}>
+            Back to Course
+          </Link>
+        </button>
+
         <GroupMessageList
           chatterName="cpsc471 Fall2021"
           chatter="cpsc471 2021 Fall 1"

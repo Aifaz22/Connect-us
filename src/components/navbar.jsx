@@ -76,7 +76,7 @@ class NavBar extends React.Component {
                 id="warning"
               >
                 <NavDropdown.Item>
-                  <Link to="/course"> Example Course</Link>{" "}
+                  <Link to="/course"> cpsc471 Fall2021</Link>{" "}
                 </NavDropdown.Item>
               </NavDropdown>
             )}

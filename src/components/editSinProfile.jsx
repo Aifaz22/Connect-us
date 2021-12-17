@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 class EditSinProfile extends Component {
   constructor(props) {
     super(props);
@@ -112,6 +113,14 @@ class EditSinProfile extends Component {
     console.log(this.state.research);
     return (
       <div>
+        <button
+          style={{ display: "block", position: "absolute", left: "10px" }}
+          className="btn btn-info"
+        >
+          <Link to="/profile" style={{ color: "white" }}>
+            Back to profile
+          </Link>
+        </button>
         <h2>Research Area</h2>
         <hr />
 
@@ -122,6 +131,7 @@ class EditSinProfile extends Component {
 
               <button
                 style={{ marginLeft: "2%" }}
+                className="btn btn-danger"
                 onClick={async (event) => {
                   await this.delResearch(elem.Research_area);
                   var temp = [];
@@ -136,11 +146,12 @@ class EditSinProfile extends Component {
               >
                 delete
               </button>
+              <br />
+              <br />
             </div>
           );
         })}
 
-        <hr />
         <form
           onSubmit={async (event) => {
             await this.addResearch();
@@ -156,7 +167,9 @@ class EditSinProfile extends Component {
             }}
           />
 
-          <button type="submit">Add</button>
+          <button className="btn btn-primary" type="submit">
+            Add
+          </button>
         </form>
       </div>
     );

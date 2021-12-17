@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 class EditProfile extends Component {
   constructor(props) {
     super(props);
@@ -271,6 +272,14 @@ class EditProfile extends Component {
     console.log(this.state.major);
     return (
       <div>
+        <button
+          style={{ display: "block", position: "absolute", left: "10px" }}
+          className="btn btn-info"
+        >
+          <Link to="/profile" style={{ color: "white" }}>
+            Back to profile
+          </Link>
+        </button>
         PRESS CTRL key +Submit to update your profile (you may close the other
         opened tab)
         <form
@@ -448,7 +457,9 @@ class EditProfile extends Component {
             )}
           </label>
           <hr />
-          <button type="submit">Update</button>
+          <button className="btn btn-primary" type="submit">
+            Update
+          </button>
         </form>
       </div>
     );

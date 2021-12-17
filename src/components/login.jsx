@@ -105,14 +105,18 @@ class Login extends React.Component {
             />
           </label>
           <div>
-            <button type="submit" style={{ marginTop: "0.5%" }}>
+            <button
+              type="submit"
+              className="btn btn-primary"
+              style={{ marginTop: "0.5%" }}
+            >
               Submit
             </button>
           </div>
           {/* <Link to = "/register" className="navbar-brand"> Register</Link> */}
         </form>
+        <hr />
         <Link to="/register" className="navbar-brand">
-          {" "}
           Register
         </Link>
         {iserror ? (

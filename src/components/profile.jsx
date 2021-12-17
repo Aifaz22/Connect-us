@@ -277,25 +277,102 @@ class Profile extends React.Component {
         <div>
           {/* test */}
           {this.state.id.split(" ")[0] === "UCID" && (
-            <button style={{ marginLeft: "0", display: "block  " }}>
-              <Link to="/editProfile">Edit Profile</Link>
-            </button>
+            <React.Fragment>
+              <button
+                type="button"
+                class="btn btn-info"
+                style={{
+                  display: "block",
+                  position: "absolute",
+                  left: "10px",
+                }}
+              >
+                <Link to="/editProfile" style={{ color: "white" }}>
+                  Edit Profile
+                </Link>
+              </button>
+              <button
+                style={{
+                  display: "block",
+                  position: "absolute",
+                  right: "10px",
+                }}
+                type="button"
+                class="btn btn-danger"
+              >
+                <Link to="/change-password" style={{ color: "white" }}>
+                  Change password
+                </Link>
+              </button>
+            </React.Fragment>
           )}
           {this.state.id.split(" ")[0] === "SIN" && (
-            <button style={{ marginLeft: "0", display: "block  " }}>
-              <Link to="/editSinProfile">Edit Profile</Link>
-            </button>
+            <React.Fragment>
+              <button
+                type="button"
+                class="btn btn-info"
+                style={{
+                  display: "block",
+                  position: "absolute",
+                  left: "10px",
+                }}
+              >
+                <Link to="/editSinProfile" style={{ color: "white" }}>
+                  Edit Profile
+                </Link>
+              </button>
+              <button
+                style={{
+                  display: "block",
+                  position: "absolute",
+                  right: "10px",
+                }}
+                type="button"
+                class="btn btn-danger"
+              >
+                <Link to="/change-password" style={{ color: "white" }}>
+                  Change password
+                </Link>
+              </button>
+            </React.Fragment>
           )}
           {this.state.id.split(" ")[0] === "Alumni_ID" && (
-            <button style={{ marginLeft: "0", display: "block  " }}>
-              <Link to="/editAlumProfile">Edit Profile</Link>
-            </button>
+            <React.Fragment>
+              <button
+                type="button"
+                class="btn btn-info"
+                style={{
+                  display: "block",
+                  position: "absolute",
+                  left: "10px",
+                }}
+              >
+                <Link to="/editAlumProfile" style={{ color: "white" }}>
+                  Edit Profile
+                </Link>
+              </button>
+              <button
+                style={{
+                  display: "block",
+                  position: "absolute",
+                  right: "10px",
+                }}
+                type="button"
+                class="btn btn-danger"
+              >
+                <Link to="/change-password" style={{ color: "white" }}>
+                  Change password
+                </Link>
+              </button>
+            </React.Fragment>
           )}
           <view style={{ flex: 1, flexDirection: "column", marginRight: "3%" }}>
             {(this.state.id.split(" ")[0] === "UCID" ||
               this.state.id.split(" ")[0] === "Alumni_ID") && (
-              <button style={{ right: "0%" }}>
-                <Link to="/messenger">Message</Link>
+              <button type="button" class="btn btn-primary">
+                <Link to="/messenger" style={{ color: "white" }}>
+                  Message
+                </Link>
               </button>
             )}
             <h2>{this.state.name}</h2>

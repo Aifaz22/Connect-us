@@ -104,6 +104,7 @@ class AddPost extends React.Component {
               type="submit"
               value="Add Post"
               disabled={this.state.subject === ""}
+              className="btn btn-primary"
             />
           </form>
         </div>

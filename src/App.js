@@ -16,6 +16,7 @@ import React, { Component } from "react";
 import EditProfile from "./components/editProfile";
 import EditSinProfile from "./components/editSinProfile";
 import EditAlumProfile from "./components/editAlumProfile";
+import ChangePassword from "./components/changePassword";
 
 {
   /* <div className="App">
@@ -65,6 +66,7 @@ class App extends Component {
           <Route path="/editProfile" element={<EditProfile />} />
           <Route path="/editSinProfile" element={<EditSinProfile />} />
           <Route path="/editAlumProfile" element={<EditAlumProfile />} />
+          <Route path="/change-password" element={<ChangePassword />} />
         </Routes>
         {/* <Routes> 
            <Route path="/" element={<Login />} />

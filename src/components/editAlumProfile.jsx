@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 class EditAlumProfile extends Component {
   constructor(props) {
     super(props);
@@ -177,7 +178,14 @@ class EditAlumProfile extends Component {
     console.log(this.state.degrees);
     return (
       <div>
-        <h2>Research Area</h2>
+        <button
+          style={{ display: "block", position: "absolute", left: "10px" }}
+          className="btn btn-info"
+        >
+          <Link to="/profile" style={{ color: "white" }}>
+            Back to profile
+          </Link>
+        </button>
         <hr />
         <h4>Degrees</h4>
         {this.state.degrees.map((elem) => {
@@ -188,6 +196,7 @@ class EditAlumProfile extends Component {
               </span>
               <button
                 style={{ marginLeft: "2%" }}
+                className="btn btn-danger"
                 onClick={async (event) => {
                   await this.delDegree(elem.Degree_title, elem.degree_year);
                   var temp = [];
@@ -205,6 +214,8 @@ class EditAlumProfile extends Component {
               >
                 delete
               </button>
+              <br />
+              <br />
             </div>
           );
         })}
@@ -236,7 +247,11 @@ class EditAlumProfile extends Component {
             }}
           />
 
-          <button type="submit" style={{ marginLeft: "1%" }}>
+          <button
+            className="btn btn-primary"
+            type="submit"
+            style={{ marginLeft: "1%" }}
+          >
             Add
           </button>
         </form>
@@ -267,7 +282,11 @@ class EditAlumProfile extends Component {
             }}
           />
 
-          <button type="submit" style={{ marginLeft: "1%" }}>
+          <button
+            className="btn btn-primary"
+            type="submit"
+            style={{ marginLeft: "1%" }}
+          >
             Update
           </button>
         </form>

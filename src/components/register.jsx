@@ -192,6 +192,7 @@ class RegisterUser extends React.Component {
           <input
             type="submit"
             value="Submit"
+            className="btn btn-primary"
             disabled={
               this.state.pass === "" || this.state.pass !== this.state.repass
             }

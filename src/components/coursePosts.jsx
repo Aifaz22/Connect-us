@@ -265,8 +265,10 @@ class CoursePosts extends Component {
         {sessionStorage.getItem("userUCID") !== "null" &&
           parseInt(sessionStorage.getItem("userUCID")) !=
             this.state.Ta_ucid && (
-            <button>
-              <Link to="/group-messenger">Group Messenger</Link>
+            <button className="btn btn-primary">
+              <Link to="/group-messenger" style={{ color: "white" }}>
+                Group Messenger
+              </Link>
             </button>
           )}
         {((sessionStorage.getItem("userSIN") !== "null" &&
@@ -286,6 +288,7 @@ class CoursePosts extends Component {
               onClick={(e) => {
                 this.toggleGroup();
               }}
+              className="btn btn-warning"
             >
               Toggle Group Messenger
             </button>
@@ -339,6 +342,7 @@ class CoursePosts extends Component {
                       onClick={(e) => {
                         this.delPost(post.Post_id);
                       }}
+                      className="btn btn-danger"
                     >
                       Delete Post
                     </button>
@@ -377,6 +381,7 @@ class CoursePosts extends Component {
                 <button
                   style={{ marginBottom: "0%" }}
                   onClick={() => this.toggleComment(post.Post_id)}
+                  className="btn btn-info"
                 >
                   Toggle Comments:{" "}
                   {this.state.comments[post.Post_id] !== undefined ? (
@@ -402,6 +407,7 @@ class CoursePosts extends Component {
                               {comment.creationTime.split("T")[0]}{" "}
                               {comment.Author_id == this.state.userAuthorID && (
                                 <button
+                                  className="btn btn-danger"
                                   onClick={(e) =>
                                     this.delComment(
                                       comment.Comment_id,

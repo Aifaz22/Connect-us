@@ -125,6 +125,7 @@ class MessageForm extends React.Component {
             paddingTop: "6px",
             paddingBottom: "6px",
           }}
+          className="btn btn-primary"
         >
           Send
         </button>

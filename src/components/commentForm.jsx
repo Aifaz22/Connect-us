@@ -47,7 +47,11 @@ class CommentForm extends Component {
               this.setState({ Post_comment: e.target.value });
             }}
           ></input>
-          <button type="submit" style={{ width: "15%" }}>
+          <button
+            type="submit"
+            style={{ width: "15%" }}
+            className="btn btn-primary"
+          >
             Post
           </button>
         </form>{" "}
