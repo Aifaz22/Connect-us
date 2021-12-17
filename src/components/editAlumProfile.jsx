@@ -145,25 +145,25 @@ class EditAlumProfile extends Component {
     var URL = "http://localhost:3000/api/";
     if (sessionStorage.getItem("userUCID") !== "null") {
       URL += "Students/" + sessionStorage.getItem("userUCID");
-      this.setState({
+      await this.setState({
         userType: "UCID",
         userID: parseInt(sessionStorage.getItem("userUCID")),
       });
     } else if (sessionStorage.getItem("userSIN") !== "null") {
       URL += "Instructor/" + sessionStorage.getItem("userSIN");
-      this.setState({
+      await this.setState({
         userType: "SIN",
         userID: parseInt(sessionStorage.getItem("userSIN")),
       });
     } else if (sessionStorage.getItem("userAlumni") !== "null") {
       URL += "Alumni/" + sessionStorage.getItem("userAlumni");
-      this.setState({
+      await this.setState({
         userType: "Alumni_ID",
         userID: parseInt(sessionStorage.getItem("userAlumni")),
       });
     } else if (sessionStorage.getItem("userAdmin") !== "null") {
       URL += "Admin/" + sessionStorage.getItem("userAdmin");
-      this.setState({
+      await this.setState({
         userType: "Admin_ID",
         userID: parseInt(sessionStorage.getItem("userAdmin")),
       });
