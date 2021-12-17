@@ -6,6 +6,7 @@ import MainContent from "./maincontent";
 import Messenger from "./messenger";
 import Profile from "./profile";
 import Login from "./login";
+//import SearchResult from "./searchres";
 import { Route, Routes, useParams } from "react-router-dom";
 import Courses from "./courses";
 
@@ -100,6 +101,7 @@ class NavBar extends React.Component {
               />
               <button class="btn btn-outline-success" type="submit">
                 Search
+                 
               </button>
             </form>
             <Link
@@ -123,6 +125,10 @@ class NavBar extends React.Component {
     <Route path = "/login" element ={<Login/>}/>
     </Routes> */}
         </div>
+       { /*
+        <div>
+          <SearchResult/>
+        </div>*/}
       </div>
     );
   }
