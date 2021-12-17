@@ -23,7 +23,8 @@ class Messenger extends React.Component {
       self.setState({ chatter: "UCID " + self.state.log[index].UCID });
     }
     self.setState({
-      chatterName: self.state.log[0].fname + " " + self.state.log[index].lname,
+      chatterName:
+        self.state.log[index].fname + " " + self.state.log[index].lname,
     });
     console.log(self.state.chatter);
     console.log(self.state.chatterName);
